@@ -1,3 +1,3 @@
-class Curren < ActiveSupport::CurrentAttributes
-  attributes :user
+class Current < ActiveSupport::CurrentAttributes
+  attribute :user
 end
