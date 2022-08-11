@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title>Platzi Blog - API</title>
+  <head>
+<body>
+<script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
+<script>
+    // Cuando la ventana carge ejecuta la funcion
+    window.addEventListener('load', function () {
+
+        // Inicializar integracion con auth0
+        var webAuth = new auth0.WebAuth({
+            // Apunta a tu dominio de auth0
+            domain: '<%= Rails.application.credentials.auth0[:domain] %>',
+            // Usa el client id que encuentras en la configuracion de tu aplicacion en Auth0
+            clientID: '<%= Rails.application.credentials.auth0[:client_id] %>',
+            // Con esto especificamos la clase de token que queremos
+            // token para recibir un JWT y id_token para que se incluya informacion del usuario
+            responseType: 'token id_token',
+            // Con esto especificamos la informacion que deseamos incluir en el token. Para nuestro caso
+            // email y profile para poder obtener el nombre
+            scope: 'openid profile email',
+            // Esta es la URL a la que Auth0 va a redirigir despues de hacer login. Normalmente esto
+            // seria una URL al single page application de nuestra aplicacion. En nuestro caso vamos
+            // a usar jwt.io para ver el token y asi poder copiar y pegarlo en postman para poder
+            // probar el API.
+            redirectUri: 'https://jwt.io'
+        });
+
+        // Con esto se redireciona a la pagina de autenticacion de Auth0.
+        // En este caso estamos redirecionando inmediatamente. Normalmente, esto se ejcutaria despues
+        // de que el usuario haga click en un boton de login.
+        webAuth.authorize();
+    });
+</script>
+</body>
+</html>

@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update]
 
   rescue_from Exception do |e|
+    puts "error = #{ e.message }"
     render json: { error: e.message }, status: :internal_error
   end
 
